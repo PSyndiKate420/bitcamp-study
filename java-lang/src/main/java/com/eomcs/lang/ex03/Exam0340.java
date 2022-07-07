@@ -23,7 +23,7 @@ public class Exam0340 {
     System.out.println(987654321123456.7f);
     System.out.println("----------------------------");
 
-    //## 8byte(double) 부동소수점의 유효자릿수
+    //## 8byte(double) 부동소수점의 유효자릿수  
     //소수점을 뺀 후 16자리 숫자까지는 거의 정상적으로 저장된다.
     System.out.println(987654321.1234567);
     System.out.println(9.876543211234567);

@@ -16,7 +16,7 @@ public class Exam0110 {
   public static void main(String[] args) {
 
     // 변수 선언 문법
-    // - 데이터타입 변수
+    // - 데이터타입 변수 
     //
     int i;
 
