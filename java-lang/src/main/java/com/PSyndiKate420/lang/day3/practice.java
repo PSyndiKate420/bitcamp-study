@@ -15,9 +15,12 @@ public class practice {
         int Page = 0;
 
         // 첫 화면 출력. 다시는 볼 일이 없으니 Switch에 포함 X
-        System.out.printf("----------------\n");
-        System.out.printf("학점입력 시스템\n");
-        System.out.printf("----------------\n");
+        System.out.printf("----------------");
+        System.out.println();
+        System.out.printf("학점입력 시스템");
+        System.out.println();
+        System.out.printf("----------------");
+        System.out.println();
         // 곧바로 Page를 1로 넘김 
         Page++;
 
@@ -67,8 +70,10 @@ public class practice {
         }
             case 2:
             while(Page == 2) {
-                System.out.printf("----------------\n");
-                System.out.printf("성적 입력란입니다\n");
+                System.out.printf("----------------");
+                System.out.println();
+                System.out.printf("성적 입력란입니다");
+                System.out.println();
                 break;
             }
 
