@@ -26,10 +26,12 @@ public class Exam0530 {
 
     arr1[0] = 100; // arr1에 저장된 주소로 찾아가서 0번째 항목에 값을 넣어라!
     arr1[1] = 200; // arr1에 저장된 추소로 찾아가서 1번째 항목에 값을 넣어라!
+    arr1[2] = 300;
 
     System.out.println(arr1[0]);
     System.out.println(arr1[1]);
-  }
+    System.out.println(arr1[2]);
+    }
 }
 
 // [정리]

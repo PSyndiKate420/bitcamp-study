@@ -43,7 +43,7 @@ public class practice {
                     PW = scanner.nextLine();
                     // 입력한 PW와 관리자 PW를 비교
                     // PW = AdminPW일시 Page를 2로 넘김
-                    if(PW.equals(AdminPW)) {
+                    if(PW.equals(AdminPW)) { 
                         System.out.printf("관리자님 환영합니다.\n");
                         Page = 2;
                         break;

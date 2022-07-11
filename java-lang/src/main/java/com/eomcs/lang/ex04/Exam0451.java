@@ -5,8 +5,6 @@ package com.eomcs.lang.ex04;
 public class Exam0451 {
   public static void main(String[] args) {
 
-    @SuppressWarnings("deprecation")
-
     java.util.Date d1 = new java.util.Date();
     java.util.Date d2 = d1;
     
