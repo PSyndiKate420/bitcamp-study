@@ -14,15 +14,23 @@ public class App {
         System.out.println("환영합니다!");
         System.out.println();
 
+        String title ="";
+        String content ="";
+        String writer = "";
+        String password ="";
+
+        String[] titles= new String[1000];
+
         Scanner keyboardInput = new Scanner(System.in);
         int menuNo;
 
         while (true) {
-            System.out.println("메뉴");
+            System.out.println("메뉴:");
             System.out.println("  1. 게시글 목록");
             System.out.println("  2. 게시글 상세보기");
+            System.out.println("  3. 게시글 등록");
             System.out.println();
-            System.out.printf("메뉴를 선택하세요[1..2](0.종료) ");
+            System.out.printf("메뉴를 선택하세요[1..3](0.종료) ");
 
             menuNo = keyboardInput.nextInt();
             keyboardInput.nextLine();
@@ -53,14 +61,31 @@ public class App {
                 System.out.println("게시판 상세보기");
 
                 System.out.printf("번호 : %d\n", 1);
-                System.out.printf("제목 : %s\n", "제목입니다1");
-                System.out.printf("내용 : %s\n", "내용입니다.");
+                System.out.printf("제목 : %s\n", title);
+                System.out.printf("내용 : %s\n", content);
                 System.out.printf("조회수 : %d\n", 100);
-                System.out.printf("작성자 : %s\n", "홍길동");
+                System.out.printf("작성자 : %s\n", writer);
                 System.out.printf("등록일 : %s\n", "2022-07-08");
-            } else {
+            } else if(menuNo == 3) {
+                System.out.println("[게시글 등록]");
+
+                System.out.println("제목? ");
+                title = keyboardInput.nextLine();
+
+                System.out.println("내용? ");
+                content = keyboardInput.nextLine();
+
+                System.out.println("제목?");
+                writer = keyboardInput.nextLine();
+
+                System.out.println("암호? ");
+                password = keyboardInput.nextLine();
+            }
+            else {
                 System.out.println("메뉴 번호가 옳지 않습니다.");
             }
+
+            System.out.println();
         }
 
     }
