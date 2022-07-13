@@ -17,7 +17,7 @@ public class practice {
         // 첫 화면 출력. 다시는 볼 일이 없으니 Switch에 포함 X
         System.out.printf("----------------");
         System.out.println();
-        System.out.printf("학점입력 시스템");
+        System.out.printf("게시판 어플리케이션");
         System.out.println();
         System.out.printf("----------------");
         System.out.println();
