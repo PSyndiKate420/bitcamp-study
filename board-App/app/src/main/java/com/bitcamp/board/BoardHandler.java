@@ -11,6 +11,7 @@ public class BoardHandler {
 
   static int boardCount = 0;
 
+
   static void processList() {
     System.out.println("[게시글 목록]");
     System.out.println("번호 제목 조회수 작성자 등록일");
@@ -89,21 +90,21 @@ public class BoardHandler {
 
     int boardNo = Prompt.inputInt("삭제할 번호? ");
 
-    Board board = null;
-    for (int i=0; i< boardCount; i++) {
-      if (boards[i].no == boardNo) {
-        board = boards[i];
+    int boardIndex = -1;
+    for(int i = 0; i < boardCount; i++) {
+      if(boards[i].no == boardNo) {
+        boardIndex = i;
         break;
       }
     }
     // 사용자가 입력한 번호에 해당하는 게시글을 못찾았다면
-    if (board == null) {
+    if (boardIndex == -1) {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
     }
 
-    // 삭제할 게시글으 다음 항목을 앞으로 당긴다.
-    for (int i = boardNo + 1; i < boardCount; i++ ) {
+    // 삭제할 게시글의 다음 항목을 앞으로 당긴다.
+    for (int i = boardIndex + 1; i < boardCount; i++ ) {
       boards[i-1] = boards[i]; 
     }
     boards[--boardCount] = null;
@@ -116,10 +117,9 @@ public class BoardHandler {
     int boardNo = Prompt.inputInt("변경할 게시글 번호? ");
 
     Board board = null;
-    for (int i=0; i< boardCount; i++) {
-      if (boards[i].no == boardNo) {
+    for(int i=0; i< boardCount; i++) {
+      if(boards[i].no == boardNo) {
         board = boards[i];
-        break;
       }
     }
     // 사용자가 입력한 번호에 해당하는 게시글을 못찾았다면
@@ -127,13 +127,18 @@ public class BoardHandler {
       System.out.println("해당 번호의 게시글이 없습니다!");
       return;
     }
-    // 제목?(원래 제목) xx
-    // 내용?(원래 내용) xx
 
-    // 변경하시겠습니가?(y/n)
-    // if y -> 변경했습니다.
-    // if n -> 변경 취소했습니다.
+    String newTitle = Prompt.inputString("제목?(" + board.title + ") ");
+    String newContent = Prompt.inputString("제목?(" + board.content + ") ");
 
+    String input = Prompt.inputString("변경하시겠습니까?(y/n) ");
+    if(input.equals("y")) {
+      board.title = newTitle;
+      board.content = newContent;
+      System.out.println("변경했습니다.");
+    } else {
+      System.out.println("변경 취소했습니다.");
+    }
   }
 }
 

@@ -34,7 +34,6 @@ public class App {
             System.out.println("  3. 게시글 등록");
             System.out.println();
             System.out.printf("메뉴를 선택하세요[1..3](0.종료) ");
-
             menuNo = keyboardInput.nextInt();
             keyboardInput.nextLine();
   

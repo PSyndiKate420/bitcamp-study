@@ -8,7 +8,7 @@ public class App {
   public static void main(String[] args) {
 
     Fundamental.welcome();
-    // Fundamental.Login();
+    Fundamental.Login();
     loop: while(true) {
       displayMenu();
       int menuNo = Prompt.inputInt("메뉴를 선택하세요[1..5](0.종료) ");
