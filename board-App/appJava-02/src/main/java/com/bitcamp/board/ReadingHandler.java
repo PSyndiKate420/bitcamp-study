@@ -3,17 +3,42 @@
  */
 package com.bitcamp.board;
 
-public class BoardHandler {
+public class ReadingHandler {
 
   // Board 인스턴스의 주소를 저장할 레퍼런스 배열을 만든다.
-  static final int SIZE = 3;
-  static Board[] boards = new Board[SIZE];
+  static final int DEFAULT_SIZE = 3;
+  static Board[] boards = new Board[DEFAULT_SIZE];
 
   static int boardCount = 0;
 
+  static void execute() {
+    while(true) {
+      System.out.println("독서록:");
+      System.out.println("  1. 목록");
+      System.out.println("  2. 상세보기");
+      System.out.println("  3. 등록");
+      System.out.println("  4. 삭제");
+      System.out.println("  5. 변경");
+      Fundamental.displayBlankLine();
+
+      int menuNo = Prompt.inputInt("메뉴를 선택하세요[1..5](0.이전) ");
+      Fundamental.displayHeadline();
+
+      switch(menuNo) {
+        case 0: return;
+        case 1: ReadingHandler.processList(); break;
+        case 2: ReadingHandler.processDetail(); break;
+        case 3: ReadingHandler.processInput(); break;
+        case 4: ReadingHandler.processDelete(); break;
+        case 5: ReadingHandler.processUpdate(); break;
+        default: System.out.println("메뉴 번호가 옳지 않습니다."); break;
+      }
+    }
+  }
+
 
   static void processList() {
-    System.out.println("[게시글 목록]");
+    System.out.println("[독서록 목록]");
     System.out.println("번호 제목 조회수 작성자 등록일");
 
     for(int i = 0; i < boardCount; i++) {
@@ -31,9 +56,9 @@ public class BoardHandler {
   }
 
   static void processDetail() {
-    System.out.println("[게시글 상세보기]");
+    System.out.println("[독서록 상세보기]");
 
-    int boardNo = Prompt.inputInt("조회할 게시글 번호? ");
+    int boardNo = Prompt.inputInt("조회할 번호? ");
 
     Board board = null;
     for (int i=0; i< boardCount; i++) {
@@ -45,7 +70,7 @@ public class BoardHandler {
 
     // 사용자가 입력한 번호에 해당하는 게시글을 못찾았다면
     if (board == null) {
-      System.out.println("해당 번호의 게시글이 없습니다!");
+      System.out.println("해당 번호의 독서록이 없습니다!");
       return;
     }
 
@@ -59,12 +84,19 @@ public class BoardHandler {
   }
 
   static void processInput() {
-    System.out.println("[게시글 등록]");
+    System.out.println("[독서록 등록]");
 
-    // 배열의 크기를 초과하지 않았는지 검사한다.
-    if (boardCount == SIZE) {
-      System.out.println("게시글의 최대 개수를 초과했습니다!");
-      return;
+    if (boardCount == boards.length) {
+      // 새로 만들 배열의 크기를 계산한다.
+      int newSize = boards.length + (boards.length >> 1 /* 나누기 2라는 뜻*/);
+
+      // 새 배열 준비
+      Board[] newArray = new Board[newSize];
+
+      for (int i = 0; i< boards.length; i++) {
+        newArray[i] = boards[i];
+      }
+      boards = newArray;
     }
 
     Board board = new Board();
@@ -86,7 +118,7 @@ public class BoardHandler {
   }
 
   static void processDelete() {
-    System.out.println("[게시글 삭제]");
+    System.out.println("[독서록 삭제]");
 
     int boardNo = Prompt.inputInt("삭제할 번호? ");
 
@@ -99,7 +131,7 @@ public class BoardHandler {
     }
     // 사용자가 입력한 번호에 해당하는 게시글을 못찾았다면
     if (boardIndex == -1) {
-      System.out.println("해당 번호의 게시글이 없습니다!");
+      System.out.println("해당 번호의 독서록이 없습니다!");
       return;
     }
 
@@ -112,9 +144,9 @@ public class BoardHandler {
   }
 
   public static void processUpdate() {
-    System.out.println("[게시글 변경]");
+    System.out.println("[독서록 변경]");
 
-    int boardNo = Prompt.inputInt("변경할 게시글 번호? ");
+    int boardNo = Prompt.inputInt("변경할 독서록 번호? ");
 
     Board board = null;
     for(int i=0; i< boardCount; i++) {
@@ -124,7 +156,7 @@ public class BoardHandler {
     }
     // 사용자가 입력한 번호에 해당하는 게시글을 못찾았다면
     if (board == null) {
-      System.out.println("해당 번호의 게시글이 없습니다!");
+      System.out.println("해당 번호의 독서록이 없습니다!");
       return;
     }
 

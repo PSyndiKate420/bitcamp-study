@@ -1,7 +1,5 @@
 package com.bitcamp.board;
 
-import util.Prompt;
-
 public class Fundamental {
   public static void welcome() {
     displayHeadline();
