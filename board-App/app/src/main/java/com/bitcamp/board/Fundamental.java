@@ -1,6 +1,6 @@
 package com.bitcamp.board;
 
-import util.Prompt;
+import com.bitcamp.util.Prompt;
 
 public class Fundamental {
   public static void welcome() {
