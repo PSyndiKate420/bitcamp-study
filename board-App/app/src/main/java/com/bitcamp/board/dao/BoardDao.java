@@ -1,16 +1,64 @@
 package com.bitcamp.board.dao;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import com.bitcamp.board.domain.Board;
-import com.bitcamp.util.LinkedList;
-import com.bitcamp.util.List;
+import com.bitcamp.util.DataInputStream;
+import com.bitcamp.util.DataOutputStream;
 
 // 게시글 목록을 관리하는 역할
 //
 public class BoardDao {
 
   List<Board> list = new LinkedList<>();
-
   private int boardNo = 0;
+  String filename;
+
+  public BoardDao(String filename) {
+    this.filename = filename;
+  }
+
+  public void load() throws Exception {
+    try (DataInputStream in = new DataInputStream(new FileInputStream(filename));) {
+      // FileInputStream 도구를 사용하여 파일로부터 데이터를 읽어 들인다.
+
+      // => 먼저 게시글 개수를 읽는다.
+      int size = in.readInt();
+
+      for (int i = 0; i < size; i++) {
+        // => 파일에서 읽은 게시글 데이터를 저장할 객체를 준비한다.
+        Board board = new Board();
+        board.no = in.readInt();
+        board.title = in.readUTF();
+        board.content = in.readUTF();
+        board.writer = in.readUTF();
+        board.password = in.readUTF();
+        board.viewCount = in.readInt();
+        board.createdDate = in.readLong();
+
+        list.add(board);
+        boardNo = board.no;
+      }
+    }
+  }
+
+  public void save() throws Exception {
+    try (DataOutputStream out = new DataOutputStream(new FileOutputStream(filename));) {
+      out.writeInt(list.size());
+      for (Board board : list) {
+        out.writeInt(board.no);
+        out.writeUTF(board.title);
+        out.writeUTF(board.content);
+        out.writeUTF(board.writer);
+        out.writeUTF(board.password);
+        out.writeInt(board.viewCount);
+        out.writeLong(board.createdDate);
+      }
+    }
+  }
 
   public void insert(Board board) {
     board.no = nextNo();
@@ -38,14 +86,18 @@ public class BoardDao {
   }
 
   public Board[] findAll() {
-    Board[] arr = list.toArray(new Board[0]);
 
-    // 배열을 역순으로 정리한 뒤 리턴
-    Board[] arr2 = new Board[arr.length];
-    for(int i= 0; i<arr2.length; i++) {
-      arr[i] = arr[arr.length-i -1];
+    // 목록에서 값을 꺼내는 일을 할 객체를 준비한다.
+    Iterator<Board> iterator = list.iterator();
+
+    // 역순으로 정렬하여 리턴한다.
+    Board[] arr = new Board[list.size()];
+
+    int index = list.size() - 1;
+    while (iterator.hasNext()) {
+      arr[index--] = iterator.next();
     }
-    return arr2; 
+    return arr;
   }
 
   private int nextNo() {
