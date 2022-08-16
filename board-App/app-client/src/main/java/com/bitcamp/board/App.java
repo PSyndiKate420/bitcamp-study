@@ -2,7 +2,6 @@
  * 게시판 관리 애플리케이션
  * 비트캠프-20220704
  */
-
 package com.bitcamp.board;
 
 import java.util.Stack;

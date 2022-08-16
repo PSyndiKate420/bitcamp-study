@@ -7,5 +7,7 @@
  * in the user manual at https://docs.gradle.org/7.4.2/userguide/multi_project_builds.html
  */
 
-rootProject.name = 'board-App'
-include('app')
+rootProject.name = 'board-app'
+// include('app')
+include('app-client')
+include('app-server')
