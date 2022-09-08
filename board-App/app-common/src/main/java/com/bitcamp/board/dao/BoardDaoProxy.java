@@ -36,7 +36,6 @@ public class BoardDaoProxy {
     try (Socket socket = new Socket(ip, port);
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         DataInputStream in = new DataInputStream(socket.getInputStream());) {
-
       out.writeUTF(dataName);
       out.writeUTF("update");
       out.writeUTF(new Gson().toJson(board));
@@ -48,6 +47,7 @@ public class BoardDaoProxy {
     try (Socket socket = new Socket(ip, port);
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         DataInputStream in = new DataInputStream(socket.getInputStream());) {
+
       out.writeUTF(dataName);
       out.writeUTF("findByNo");
       out.writeInt(boardNo);
@@ -63,6 +63,7 @@ public class BoardDaoProxy {
     try (Socket socket = new Socket(ip, port);
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         DataInputStream in = new DataInputStream(socket.getInputStream());) {
+
       out.writeUTF(dataName);
       out.writeUTF("delete");
       out.writeInt(boardNo);
