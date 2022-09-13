@@ -10,12 +10,9 @@ import java.util.Stack;
 
 /* 1) 클라이언트 접속시 환영 메시지 전송
  * 2) 여러 클라이언트를 순차적으로 접속처리
- * 3) 쓰레드를 이용하여 여러 클라이언트를 동시 접속 처리
- * 4) 클라이언트가 보낸 요청 값을 받아서 그대로 돌려준다.
- * 5) 요청/응답을 무한 반복한다.
  * */
 
-public class ServerApp05 {
+public class ServerApp02 {
 
   // breadcrumb 메뉴를 저장할 스택을 준비
   public static Stack<String> breadcrumbMenu = new Stack<>();
@@ -25,45 +22,22 @@ public class ServerApp05 {
       System.out.println("서버 실행 중...");
 
       while (true) {
-        Socket socket = serverSocket.accept();
-        new Thread(() -> {
-          // 쓰레드를 시작하는 순간 별도의 실행 흐름에서 병행으로 실행된다.
-          // 아래와 똑같다.
-          //          Thread(new Runnable()) {
-          //        }
-          //          @Override
-          //          public void run() {
-          //
-          //          }
-          try(
-              DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-              DataInputStream in = new DataInputStream(socket.getInputStream()); ) {
-            System.out.println("클라이언트 요청 접수!");
+        try(Socket socket = serverSocket.accept();
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+            DataInputStream in = new DataInputStream(socket.getInputStream()); ) {
+          System.out.println("클라이언트 요청 접수!");
 
-            StringWriter strOut = new StringWriter();
-            PrintWriter tempOut = new PrintWriter(strOut);
+          StringWriter strOut = new StringWriter();
+          PrintWriter tempOut = new PrintWriter(strOut);
 
-            welcome(tempOut);
-            // 클라이언트로 출력하기
-            out.writeUTF(strOut.toString());
-
-            while(true) {
-              // 클라이언트가 보낸 값을 그대로 돌려준다.
-              String request = in.readUTF();
-              out.writeUTF(request);
-            }
-
-            // System.out.println("클라이언트에게 응답!");
-          } catch (Exception e) {
-            System.out.println("클라이언트와 통신하는 중 오류 발생!");
-            e.printStackTrace();
-          }
-
-        }).start();
-
+          welcome(tempOut);
+          out.writeUTF(strOut.toString());
+          System.out.println("클라이언트에게 응답!");
+        } catch (Exception e) {
+          System.out.println("클라이언트와 통신하는 중 오류 발생!");
+          e.printStackTrace();
+        }
       }
-
-
       //      System.out.println("서버 종료!");
     } catch (Exception e) {
       System.out.println("서버 실행 중 오류 발생!");
