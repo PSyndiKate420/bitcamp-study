@@ -6,10 +6,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import com.bitcamp.board.domain.Member;
+import com.bitcamp.servlet.annotation.Repository;
 
+@Repository("memberDao")
 public class MariaDBMemberDao implements MemberDao {
 
   Connection con;
+
+  // DAO가 사용할 의존 객체 Connection을 생성자의 파라미터로 받는다.
   public MariaDBMemberDao(Connection con) {
     this.con = con;
   }
@@ -37,7 +41,6 @@ public class MariaDBMemberDao implements MemberDao {
       if (!rs.next()) {
         return null;
       }
-
 
       Member member = new Member();
       member.no = rs.getInt("mno");
@@ -67,22 +70,30 @@ public class MariaDBMemberDao implements MemberDao {
     try (PreparedStatement pstmt1 = con.prepareStatement("delete from app_board where mno=?");
         PreparedStatement pstmt2 = con.prepareStatement("delete from app_member where mno=?")) {
 
+      // 커넥션 객체를 수동 커밋 상태로 설정한다.
       con.setAutoCommit(false);
 
+      // 회원이 작성한 게시글을 삭제한다.
       pstmt1.setInt(1, no);
       pstmt1.executeUpdate();
 
+      // 회원을 삭제한다.
       pstmt2.setInt(1, no);
-      int count =  pstmt2.executeUpdate();
+      int count = pstmt2.executeUpdate();
+
       // 현재까지 작업한 데이터 변경 결과를 실제 테이블에 적용해 달라고 요청한다.
       con.commit();
+
       return count;
-    } catch(Exception e) {
-      // 예외가 발생하면 마지막 커밋상태로 돌린다.
-      // -> 임시 데이터베이스에 보관된 이전 작업 결과를 모두 취소한다.
+
+    } catch (Exception e) {
+      // 예외가 발생하면 마지막 커밋 상태로 돌린다.
+      // => 임시 데이터베이스에 보관된 이전 작업 결과를 모두 취소한다.
       con.rollback();
+
       // 예외 발생 사실을 호출자에게 전달한다.
       throw e;
+
     } finally {
       // 삭제 작업 후 자동 커밋 상태로 전환한다.
       con.setAutoCommit(true);

@@ -6,14 +6,17 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import com.bitcamp.board.domain.Board;
+import com.bitcamp.servlet.annotation.Repository;
 
+@Repository("boardDao")
 public class MariaDBBoardDao implements BoardDao {
 
   Connection con;
-  public MariaDBBoardDao(Connection con){
+
+  //DAO가 사용할 의존 객체 Connection을 생성자의 파라미터로 받는다.
+  public MariaDBBoardDao(Connection con) {
     this.con = con;
   }
-
 
   @Override
   public int insert(Board board) throws Exception {
@@ -43,6 +46,7 @@ public class MariaDBBoardDao implements BoardDao {
       board.memberNo = rs.getInt("mno");
       board.createdDate = rs.getDate("cdt");
       board.viewCount = rs.getInt("vw_cnt");
+
       return board;
     }
   }
@@ -72,7 +76,7 @@ public class MariaDBBoardDao implements BoardDao {
   @Override
   public List<Board> findAll() throws Exception {
     try (PreparedStatement pstmt = con.prepareStatement(
-        "select bno,title,mno,cdt,vw_cnt from app_board;");
+        "select bno,title,mno,cdt,vw_cnt from app_board");
         ResultSet rs = pstmt.executeQuery()) {
 
       ArrayList<Board> list = new ArrayList<>();
@@ -82,10 +86,12 @@ public class MariaDBBoardDao implements BoardDao {
         board.no = rs.getInt("bno");
         board.title = rs.getString("title");
         board.memberNo = rs.getInt("mno");
-        board.createdDate =  rs.getDate("cdt");
+        board.createdDate = rs.getDate("cdt");
         board.viewCount = rs.getInt("vw_cnt");
+
         list.add(board);
       }
+
       return list;
     }
   }
