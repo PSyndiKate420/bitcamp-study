@@ -1,32 +1,25 @@
-/*
- * 게시글 메뉴 처리 클래스
- */
 package com.bitcamp.board.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.bitcamp.board.dao.BoardDao;
-import com.bitcamp.board.dao.MariaDBBoardDao;
 import com.bitcamp.board.domain.Board;
 
 @WebServlet(value="/board/add")
 public class BoardAddServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
-  private BoardDao boardDao;
 
-  public BoardAddServlet() throws Exception{
-    Class.forName("org.mariadb.jdbc.Driver");
-    Connection con = DriverManager.getConnection(
-        "jdbc:mariadb://localhost:3306/studydb","study","1111");
-    boardDao = new MariaDBBoardDao(con);
+  BoardDao boardDao;
+
+  @Override
+  public void init() throws ServletException {
+    boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
   }
 
   @Override
@@ -59,16 +52,11 @@ public class BoardAddServlet extends HttpServlet {
         out.println("<p>게시글을 등록했습니다.</p>");
       }
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
-
     out.println("</body>");
     out.println("</html>");
-
   }
-
-
 }
 
 
