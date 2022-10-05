@@ -1,14 +1,25 @@
 package com.bitcamp.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import com.bitcamp.board.dao.BoardDao;
+import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
+import com.bitcamp.board.domain.Member;
 
+// Servlet API에서 제공하는 multipart/form-data 처리기를 사용하려면 
+// 서블릿에 다음 애노테이션으로 설정해야 한다.
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10) // 최대 10M까지 업로드 허용
 @WebServlet("/board/add")
 public class BoardAddController extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -21,60 +32,46 @@ public class BoardAddController extends HttpServlet {
   }
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
+      request.setCharacterEncoding("UTF-8");
+
       Board board = new Board();
-      board.title = request.getParameter("title");
-      board.content = request.getParameter("content");
-      board.memberNo = Integer.parseInt(request.getParameter("writerNo"));
+      board.setTitle(request.getParameter("title"));
+      board.setContent(request.getParameter("content"));
+
+      // 첨부파일명을 저장할 컬렉션 객체 준비
+      List<AttachedFile> attachedFiles = new ArrayList<>();
+
+      // 임시 폴더에 저장된 첨부 파일을 옮길 폴더 경로 알아내기
+      String dirPath = this.getServletContext().getRealPath("/board/files");
+
+      Collection<Part> parts = request.getParts();
+
+      for (Part part : parts) {
+        if (!part.getName().equals("files")) {
+          continue;
+        }
+
+        String filename = UUID.randomUUID().toString();
+        part.write(dirPath + "/" + filename);
+        attachedFiles.add(new AttachedFile(filename));
+
+      }
+
+      // Board 객체에서 파일명 목록을 담고 있는 컬렉션 객체를 저장한다.
+      board.setAttachedFiles(attachedFiles);
+
+      // Board 객체에 로그인 사용자 정보를 저장한다.
+      Member loginMember = (Member) request.getSession().getAttribute("loginMember");
+      board.setWriter(loginMember);
 
       if (boardDao.insert(board) == 0) {
         throw new Exception("게시글 등록 실패!");
       }
 
-      // Refresh:
-      // - 응답 헤더 또는 HTML 문서에 refresh 명령을 삽입할 수 있다.
-      // - 응답 프로토콜
-      //      HTTP/1.1 200
-      //      Content-Type: text/html;charset=UTF-8
-      //      Content-Length: 244
-      //      Date: Mon, 26 Sep 2022 05:24:29 GMT
-      //      Keep-Alive: timeout=20
-      //      Connection: keep-alive
-      //
-      //      <!DOCTYPE html>
-      //      <html>
-      //      <head>
-      //      <meta charset="UTF-8">
-      //      <title>bitcamp</title>
-      //      <meta http-equiv='Refresh' content='1; url=list'> <=== HTML에 refresh 삽입
-      //      </head>
-      //      <body>
-      //      <h1>게시글 입력-JSP</h1>
-      //      <p>게시글을 등록했습니다.</p>
-      //      </body>
-      //      </html>
-      //
-      // 자바 코드:
-      //      response.setHeader("Refresh", "1;url=list"); // 응답 헤더에 refresh를 삽입할 수 있다.
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/board/add.jsp").include(request, response); 
-
-      // Redirect:
-      // - 클라이언트에게 콘텐트를 보내지 않는다.
-      // - 응답 프로토콜
-      //      HTTP/1.1 302   <=== 응답 상태 코드
-      //      Location: list  <=== 자동으로 요청할 URL
-      //      Content-Length: 0  <=== 콘텐트는 보내지 않는다.
-      //      Date: Mon, 26 Sep 2022 05:21:22 GMT
-      //      Keep-Alive: timeout=20
-      //      Connection: keep-alive
-      // 
-      //      (콘텐트 없음!)
-      //
-      // 자바 코드:
-      //      response.sendRedirect("list");
+      response.sendRedirect("list");
 
     } catch (Exception e) {
       request.setAttribute("exception", e);

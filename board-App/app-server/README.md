@@ -1,8 +1,8 @@
-### 063. OGNL 표기법으로 객체 프로퍼티를 좀 더 쉽게 다루기: EL 문법 사용
+### 070. 파일을 업로드하기 II: Servler API로 파일업로드 처리하기
 
 ## 작업 내용
 
-### 1단계 - JSP에서 Expression Element 를 EL로 대체한다.
+### 1단계 - Apache commons-fileupload 대신 Servlet API로 대체한다.
 
-- /webapp/board/detail.jsp, list.jsp 파일 변경
-- /webapp/member/detail.jsp, list.jsp 파일 변경
+- com.bitcamp.board.controller.BoardAddController 클래스 변경
+- com.bitcamp.board.controller.BoardUpdateController 클래스 변경
