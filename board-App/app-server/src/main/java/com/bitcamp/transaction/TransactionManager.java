@@ -1,7 +1,7 @@
 package com.bitcamp.transaction;
 
 import java.sql.Connection;
-import com.bitcamp.sql.DataSource;
+import javax.sql.DataSource;
 
 public class TransactionManager {
   DataSource ds;
