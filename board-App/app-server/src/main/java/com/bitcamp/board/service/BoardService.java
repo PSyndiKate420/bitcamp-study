@@ -4,8 +4,8 @@ import java.util.List;
 import com.bitcamp.board.domain.AttachedFile;
 import com.bitcamp.board.domain.Board;
 
-/* 비즈니스 로직을 수행하는 객체의 사용 규칙(호출 규칙)
- */
+// 비즈니스 로직을 수행하는 객체의 사용규칙(호출규칙)
+//
 public interface BoardService {
 
   void add(Board board) throws Exception;
@@ -23,3 +23,11 @@ public interface BoardService {
   boolean deleteAttachedFile(int fileNo) throws Exception;
 
 }
+
+
+
+
+
+
+
+
