@@ -20,11 +20,9 @@ public class ContextLoaderListener implements ServletContextListener {
   public void contextInitialized(ServletContextEvent sce) {
     System.out.println("공유 자원을 준비 중!!");
     try {
-
-      //  웹 기능이 포함된 스프링 IoC 컨테이너 준비
-      AnnotationConfigWebApplicationContext iocContainer =
+      // 웹 기능이 포함된 스프링 IoC 컨테이너 준비
+      AnnotationConfigWebApplicationContext iocContainer = 
           new AnnotationConfigWebApplicationContext();
-
       iocContainer.register(AppConfig.class);
       iocContainer.refresh(); // 자바 config 클래스(AppConfig)에 설정된 대로 객체를 생성한다.
 
@@ -36,7 +34,7 @@ public class ContextLoaderListener implements ServletContextListener {
       config.addMapping("/service/*");
       config.setMultipartConfig(new MultipartConfigElement(
           this.getClass().getAnnotation(MultipartConfig.class)));
-      config.setLoadOnStartup(1); // 웹 애플리케이션을 시작할 때 프론트 컨트롤러를 자동으로 생성한다.            
+      config.setLoadOnStartup(1); // 웹 애플리케이션을 시작할 때 프론트 컨트롤러를 자동 생성.
 
     } catch (Exception e) {
       e.printStackTrace();
