@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google Fonts - 나눔고딕 -->
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap"
+  rel="stylesheet" />
+<!-- Google Material Icons -->
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />
+
+<title>콘테스트 상세정보</title>
+
+<style>
+.wrap {
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 95%;
+  height: 95%;
+  display: grid;
+  grid-template-rows: 2fr 0.2fr 2fr 6fr;
+}
+
+#detail {
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+}
+
+#detail-sec {
+  display: grid;
+  grid-template-rows: 1.5fr 8.5fr;
+}
+
+#detail-sect {
+  text-align: left;
+  padding-top: 30px;
+  padding-left: 10px;
+  color: black;
+}
+
+#ds {
+  border: 1px solid #808080;
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: repeat(2, 0.5fr) 1.5fr;
+  padding-left: 30px;
+  padding-top: 50px;
+  font-weight: 50;
+  line-height: normal;
+}
+
+#detail-tir {
+  display: grid;
+  grid-template-rows: 3fr 7fr;
+}
+
+#xx {
+  display: grid;
+  grid-template-rows: 2fr 18fr;
+}
+
+#xx .xxt {
+  text-align: left;
+  padding-top: 10px;
+  padding-left: 10px;
+  color: black;
+}
+
+#team {
+  border-bottom: 1px solid black;
+  margin-top: 20px;
+}
+
+.btn1 {
+  margin: auto;
+  margin-bottom: auto;
+  position: relative;
+  background-color: #fff;
+  border: 0;;
+  outline: 0;
+}
+
+.btn2 {
+  margin: auto;
+  position: absolute;
+  background-color: #fff;
+  border: 0;;
+  outline: 0;
+}
+
+#top {
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  grid-template-rows: repeat(11, 1fr);
+  padding-left: 50px;
+}
+
+#top>div {
+  /* border: 1px solid black; */
+  color: black;
+  padding: 3px;
+  font-weight: 10px;
+}
+
+#detail-tirt {
+  display: grid;
+  grid-template-columns: 2fr;
+  grid-template-rows: 30px;
+  padding-left: 20px;
+}
+
+#detail-tirt2 {
+  display: grid;
+  grid-template-columns: 5fr;
+  grid-template-rows: repeat(14, 5fr);
+  padding-left: 50px;
+  padding-top: 50px;
+}
+
+#detail-tirt>div {
+  color: black;
+  padding: 3px;
+  font-weight: 10px;
+  margin-top: 20px;
+}
+
+.but {
+  padding-top: 10;
+  float: right;
+}
+</style>
+
+</head>
+<body>
+  <button class="but">x</button>
+  <div class="wrap">
+    <div id="detail">
+      <div id="xx">
+        <div class="xxt">콘테스트 상세정보</div>
+        <div style="border: 1px solid black;">
+          <img src="" alt="">
+        </div>
+      </div>
+
+      <div id="top">
+        <div></div>
+        <div></div>
+        <div>주최</div>
+        <div>해외자원개발진흥재단</div>
+        <div>주관</div>
+        <div>해외자원개발진흥재단</div>
+        <div>공모전분야</div>
+        <div>디자인</div>
+        <div>접수방법</div>
+        <div>이메일</div>
+        <div>참가자격</div>
+        <div>대학생 | 일반인 | 초등학생 | 중학생 | 고등학생</div>
+        <div>접수기간</div>
+        <div>2022-08-01 ~ 2022-10-10</div>
+        <div>상금</div>
+        <div>200만원</div>
+        <div>홈페이지</div>
+        <div>해외자원개발진흥재단</div>
+        <div>첨부파일</div>
+        <div>[첨부파일]</div>
+        <div></div>
+        <div>제8회 해외자원 개발 바로알기 공모전 참가 신청서 및 개인정보이용동의서.hwp</div>
+        <div></div>
+        <div></div>
+
+      </div>
+    </div>
+
+    <div id="team">
+      <input type='button' class='btn1' value='상세정보'>
+      <script>
+        function popup() {
+          var url = "popup.html";
+          var name = "popup test";
+          var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+          window.open(url, name, option);
+        }
+      </script>
+      <input type='button' class='btn2' value='팀원구해요'
+        onclick="showPopup();">
+      <script language="javascript">
+        function showPopup() {
+          window
+              .open(
+                  "file:///C:/Users/bitcamp/git/bitcamp-study/board-App/app-server/src/test/java/com/bitcamp/board/teamMemberDetail.html",
+                  "teamMemberDetail",
+                  "width=1000, height=800, left=1500, top=500");
+        }
+      </script>
+    </div>
+
+    <div id="detail-sec">
+      <div id="detail-sect">콘테스트 기본정보</div>
+      <div id="ds">
+        <div>>제목</div>
+        <div>올씨구 BI디자인 콘테스트</div>
+        <div></div>
+        <div>>회사명</div>
+        <div>(주)벡스넷코리아</div>
+        <div></div>
+        <div>>서비스설명</div>
+        <div>"올씨구"는 전국 재개발 / 재건축 정비사업 구역의 사업 현황과 관련 커뮤니티 및 언론기사 등 모든
+          정보를 모아놓는 어플리케이션입니다. 재개발 / 재건축 정비사업에 관심을 가지고 있는 일반 사용자 및 각 조합원들이 심화된
+          정보를 공유하고 의견을 나눌 수 있습니다. 도시 정비사업 전반에 걸친 진행 상황을 자세히 안내해 객관적 평가 기준을
+          만들어 투자의 리스크를 줄일 수 있는 정비사업 전용 어플리케이션입니다.</div>
+      </div>
+      <div></div>
+    </div>
+
+    <div id="detail-tir">
+      <div id="detail-tirt">
+        <div>● 접수 방법</div>
+        <div>
+          재단 홈페이지(www.fored.or.kr)의 공지사항에서 참가신청서 양식 다운로드,
+          <p>작성 후 작품 파일(대용량 첨부)과 함께 사무국 메일(fored@emrd.or.kr)로 제출</p>
+          <p>※ 접수 확인 후 접수 확인 메일 발송 예정</p>
+        </div>
+        <div id="detail-tirt2">
+          <div>● 유의사항(기타 사항)</div>
+          <p>- 응모자는 본인의 이름(실명)으로 응모해야 하며, 팀의 경우 대표자와 팀원 전체의 인적사항을 기재해야
+            합니다.</p>
+          <p>- 공모 요강에 준하지 않는 작품은 심사 대상에서 제외될 수 있습니다.</p>
+          <p>- 동일인(팀)에 대한 중복시상은 하지 않습니다.</p>
+          <p>- 출품작은 미발표된 순수 창작물이어야 하며, 타인의 작품을 표절·도용·모방하거나</p>
+          <p>타 공모전에서 입상한 작품으로 밝혀질 경우 수상 이후라도 상금 회수 등 수상을 취소할 수 있습니다.</p>
+          <p>- 모든 출품작에 대한 저작권은 출품자에게 있습니다.</p>
+          <p>- 수상자는 주최기관의 요청이 있을시 수상작 원본을 제출해야하며, 주최기관은 공모전의 취지와 목적을</p>
+          <p>달성하기 위하여 수상작을 전시, 복제, 배포(유튜브 및 홈페이지 등) 등의 방법(필요시 재가공)으로</p>
+          <p>활용할 수 있습니다. 이에 동의하지 않을 시 차 순위자에게 수상의 기회가 넘어갑니다.</p>
+          <p>- 출품작은 초상권, 저작권, 지적소유권, 음원 및 폰트, 대여권, 재산권 등의 이용에 법적인 문제가 없어야
+            하며,</p>
+          <p>분쟁 발생 시 모든 책임은 응모자에게 있습니다.</p>
+          <p>- 상금에 대한 제세공과금은 수상자가 부담합니다.</p>
+          <p>- 기타 요강에 명시되지 않은 내용은 주최 측 정책에 따릅니다.</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</html>
