@@ -8,7 +8,9 @@ public interface BoardDao {
 
   int insert(Board board) throws Exception;
 
-  Board findByNo(int no) throws Exception;
+  Board findByNo1(int no) throws Exception;
+
+  Board findByNo2(int no) throws Exception;
 
   int update(Board board) throws Exception;
 
@@ -20,21 +22,9 @@ public interface BoardDao {
 
   AttachedFile findFileByNo(int fileNo) throws Exception;
 
+  List<AttachedFile> findFilesByBoard(int boardNo) throws Exception;
+
   int deleteFile(int fileNo) throws Exception;
 
   int deleteFiles(int boardNo) throws Exception;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
