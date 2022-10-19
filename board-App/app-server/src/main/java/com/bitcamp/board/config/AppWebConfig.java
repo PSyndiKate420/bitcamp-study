@@ -1,21 +1,16 @@
 package com.bitcamp.board.config;
 
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.FilterType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-@ComponentScan(
-    value="com.bitcamp.board.controller",
-    excludeFilters = @Filter(
-        type = FilterType.REGEX,
-        pattern = "com.bitcamp.board.controller.admin.*")
-    )
+@Configurable // 일반 클래스가 아니라 설정에 관한 클래스니까 여기 객체를 만들 땐 소스 코드에 따라 설정하라는 뜫
+@Component
 public class AppWebConfig {
 
   public AppWebConfig() {

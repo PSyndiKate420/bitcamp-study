@@ -4,9 +4,18 @@ import javax.sql.DataSource;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+// Mybatis가 자동으로 생성할 DAO 인터페이스를 지정한다.
+// - Mybatis는 매퍼 파일과 인터페이스를 분석하여 DAO 구현체를 자동 생성한다.
+// 조건:
+// 1) namespace 의 값은 DAO 인터페이스의 이름(fully-qualified name)이어야 한다.
+// 2) SQL ID는 인터페이스에 선언된 메서드 이름과 일치해야 한다.
+// 3) SQL의 파라미터 타입도 메서드의 파라미터 타입과 일치해야 한다.
+// 
+@MapperScan("com.bitcamp.board.dao") 
 public class MybatisConfig {
 
   public MybatisConfig() {
@@ -34,9 +43,9 @@ public class MybatisConfig {
     factoryBean.setMapperLocations(
         iocContainer.getResources("classpath:com/bitcamp/board/mapper/*Mapper.xml"));
 
-    /* 도메인 클래스의 별명을 자동으로 부여한다.
-     * - 패키지 명을 제외한 클래스 이름이 별명으로 사용된다.
-     * - 별명은 대소문자를 구분하지 않는다. */
+    // 도메인 클래스의 별명을 자동으로 부여한다.
+    // - 패키지 명을 제외한 클래스 이름이 별명으로 사용된다.
+    // - 별명은 대소문자를 구분하지 않는다.
     factoryBean.setTypeAliasesPackage("com.bitcamp.board.domain");
 
     return factoryBean.getObject();
