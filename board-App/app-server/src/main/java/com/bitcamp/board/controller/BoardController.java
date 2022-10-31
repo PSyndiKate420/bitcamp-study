@@ -23,7 +23,7 @@ import com.bitcamp.board.domain.Member;
 import com.bitcamp.board.service.BoardService;
 
 @Controller
-@RequestMapping("/board/")
+@RequestMapping("board/")
 public class BoardController {
 
   ServletContext sc;

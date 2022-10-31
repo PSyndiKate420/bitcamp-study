@@ -6,12 +6,14 @@ import java.util.List;
 public class Board {
 
   private int no;
+  private int adminNo;
   private String title;
   private String content;
   private String password;
   private int viewCount;
   private Date createdDate;
   private Member writer;
+  private Member admin;
 
   // 첨부파일 정보를 저장할 필드
   private List<AttachedFile> attachedFiles;
@@ -77,6 +79,22 @@ public class Board {
 
   public void setWriter(Member writer) {
     this.writer = writer;
+  }
+
+  public int getAdminNo() {
+    return adminNo;
+  }
+
+  public void setAdminNo(int adminNo) {
+    this.adminNo = adminNo;
+  }
+
+  public Member getAdmin() {
+    return admin;
+  }
+
+  public void setAdmin(Member admin) {
+    this.admin = admin;
   }
 
   public List<AttachedFile> getAttachedFiles() {
