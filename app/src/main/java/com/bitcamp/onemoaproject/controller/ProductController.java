@@ -1,11 +1,20 @@
 package com.bitcamp.onemoaproject.controller;
 
 import javax.servlet.ServletContext;
+
+import com.bitcamp.onemoaproject.service.ProductPager;
+import com.bitcamp.onemoaproject.vo.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.bitcamp.onemoaproject.service.ProductService;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // CRUD 요청을 처리하는 페이지 컨트롤러들을 한 개의 클래스로 합친다. 
 @Controller // 페이지 컨트롤러에 붙이는 애노테이션 
@@ -21,62 +30,33 @@ public class ProductController {
     this.sc = sc;
   }
 
-  //  @GetMapping("form")
-  //  public void form() throws Exception {
-  //  }  
-  //
-  //  @PostMapping("add") 
-  //  public String add(
-  //      Product product,
-  //      @RequestParam("files") MultipartFile[] files,
-  //      HttpSession session) throws Exception {
-  //
-  //    product.setAttachedFiles(saveAttachedFiles(files));
-  //    product.setWriter((Member) session.getAttribute("loginMember"));
-  //
-  //    productService.add(product);
-  //    return "redirect:list";
-  //  }
-  //
-  //  private List<AttachedFile> saveAttachedFiles(Part[] files)
-  //      throws IOException, ServletException {
-  //    List<AttachedFile> attachedFiles = new ArrayList<>();
-  //    String dirPath = sc.getRealPath("/board/files");
-  //
-  //    for (Part part : files) {
-  //      if (part.getSize() == 0) {
-  //        continue;
-  //      }
-  //
-  //      String filename = UUID.randomUUID().toString();
-  //      part.write(dirPath + "/" + filename);
-  //      attachedFiles.add(new AttachedFile(filename));
-  //
-  //    }
-  //    return attachedFiles;
-  //  }
+  @RequestMapping("list")
+  public ModelAndView list(@RequestParam(defaultValue = "title") String searchOption,
+                           @RequestParam(defaultValue = "") String keyword,
+                           @RequestParam(defaultValue = "1") int curPage) throws Exception {
+    // 레코드의 개수 계산
+    int count = productService.countArticle(searchOption, keyword);
 
-  //  private List<AttachedFile> saveAttachedFiles(MultipartFile[] files)
-  //      throws IOException, ServletException {
-  //    List<AttachedFile> attachedFiles = new ArrayList<>();
-  //    String dirPath = sc.getRealPath("/board/files");
-  //
-  //    for (MultipartFile part : files) {
-  //      if (part.isEmpty()) {
-  //        continue;
-  //      }
-  //
-  //      String filename = UUID.randomUUID().toString();
-  //      part.transferTo(new File(dirPath + "/" + filename)); // 파일경로를 파일 객체에 담아서 넘겨야 함 
-  //      attachedFiles.add(new AttachedFile(filename));
-  //
-  //    }
-  //    return attachedFiles;
-  //  }
+    // 페이지 나누기 관련 처리
+    ProductPager productPager = new ProductPager(count, curPage);
+    int start = productPager.getPageBegin();
+    int end = productPager.getPageEnd();
 
-  @GetMapping("list")
-  public void list(Model model) throws Exception {
-    model.addAttribute("products", productService.list());
+    List<Product> list = productService.listAll(start, end, searchOption, keyword);
+
+    // 데이터를 맵에 저장
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("list", list); //list
+    map.put("count", count); // 레코드의 개수
+    map.put("searchOption", searchOption); // 검색옵션
+    map.put("keyword", keyword); //검색 키워드
+    map.put("productPager", productPager);
+
+    ModelAndView mav = new ModelAndView();
+    mav.addObject("map", map); // 맵에 저장된 데이터를 mav에 저장
+    mav.setViewName("product/list"); // 뷰를 list.jsp로 설정
+
+    return mav; // list.jsp로 List가 전달
   }
 
   //  @GetMapping("detail")

@@ -5,15 +5,15 @@ import java.sql.Date;
 public class Product {
 
   private int no;
-  private String categoryNo;
-  private String title;
-  private String content;
+  private String categoryNo; // 게시글 번호
+  private String title; // 게시글 제목
+  private String content; // 게시글 내용
   private int price;
-  private int viewCount;
-  private Date createdDate;
+  private int viewCount; // 게시글 조회수
+  private Date createdDate; // 게시글 작성일
   private String thumbnail;
   private String thumbnailPath;
-  private Member writer; 
+  private Member writer; //게시글 작성자
 
   // 첨부파일 정보를 저장할 필드 
   // private List<AttachedFile> attachedFiles;

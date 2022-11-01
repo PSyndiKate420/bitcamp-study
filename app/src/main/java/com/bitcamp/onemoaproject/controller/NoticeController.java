@@ -21,7 +21,6 @@ public class NoticeController {
   ServletContext sc;
   NoticeService noticeService;
 
-
   public NoticeController(NoticeService noticeService, ServletContext sc) {
     System.out.println("NoticeController() 호출됨!");
     this.noticeService = noticeService;

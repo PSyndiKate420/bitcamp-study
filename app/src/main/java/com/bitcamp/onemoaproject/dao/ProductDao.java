@@ -6,31 +6,10 @@ import com.bitcamp.onemoaproject.vo.Product;
 
 @Mapper
 public interface ProductDao {
+  // 게시글 전체 목록
+  List<Product> findAll(int start, int end, String searchOption, String keyword) throws Exception;
 
-  int insert(Product product);
-
-  Product findByNo(int no);
-
-  int update(Product product);
-
-  int delete(int no);
-
-  //  int deleteByMember(int memberNo);
-
-  List<Product> findAll();
-
-  int insertFiles(Product product);
-
-  //  AttachedFile findFileByNo(int fileNo);
-  //
-  //  List<AttachedFile> findFilesByProduct(int ProductNo);
-  //
-  //  int deleteFile(int fileNo);
-  //
-  //  int deleteFiles(int ProductNo);
-  //
-  //  int deleteFilesByMemberProducts(int memberNo);
-
+  public int countArticle(String searchOption, String keyword) throws Exception;
 }
 
 
